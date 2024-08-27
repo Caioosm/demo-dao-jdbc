@@ -3,15 +3,13 @@ package app;
 
 import model.dao.DaoFactory;
 import model.dao.SellerDao;
-import model.entities.Department;
+// import model.entities.Department;
 import model.entities.Seller;
 
 public class Program {
     public static void main(String[] args) throws Exception {
         
-        Department obj = new Department(1, "books");
-
-        
+        System.out.println("=== TEST 1: seller findByID: ===");     
         SellerDao sellerDao = DaoFactory.creatSellerDao();
         
         Seller seller = sellerDao.findById(3);
