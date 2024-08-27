@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 import db.DB5;
 import db.DbException5;
 import model.dao.SellerDao;
@@ -94,8 +95,27 @@ public class SellerDaoJDBC implements SellerDao {
 
     @Override
     public void deleteById(Integer id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteById'");
+        PreparedStatement preparedStatement = null;
+        try {
+            preparedStatement = connection.prepareStatement(
+                "DELETE FROM seller WHERE Id = ?"
+            );
+
+            preparedStatement.setInt(1, id);
+            
+            int rows = preparedStatement.executeUpdate();
+            
+            if (rows == 0) {
+                throw new DbException5("This Id don't exist");
+            }
+            
+        } 
+        catch (SQLException e) {
+            throw new DbException5(e.getMessage());
+        }
+        finally{
+            DB5.closeStatemnet(preparedStatement);
+        }
     }
 
     @Override
